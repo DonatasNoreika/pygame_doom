@@ -51,7 +51,7 @@ class RayCasting:
                 depth_vert += delta_depth
 
             # depth
-            if delta_depth < depth_hor:
+            if depth_vert < depth_hor:
                 depth = depth_vert
             else:
                 depth = depth_hor
