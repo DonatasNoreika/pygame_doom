@@ -1,6 +1,6 @@
 import pygame as pg
 import math
-from settings import FOV, HALF_FOV, NUM_RAYS, HALF_NUM_RAYS, DELTA_ANGLE, MAX_DEPTH
+from settings import FOV, HALF_FOV, NUM_RAYS, HALF_NUM_RAYS, DELTA_ANGLE, MAX_DEPTH, SCREEN_DIST, HALF_WIDTH, HALF_HEIGHT, SCALE
 
 class RayCasting:
     def __init__(self, game):
@@ -56,8 +56,14 @@ class RayCasting:
             else:
                 depth = depth_hor
 
-            # draw for debug
-            pg.draw.line(self.game.screen, "yellow", (100 * ox, 100 * oy), (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
+            # # draw for 2D debug
+            # pg.draw.line(self.game.screen, "yellow", (100 * ox, 100 * oy), (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
+
+            # projection
+            proj_height = SCREEN_DIST / (depth + 0.0001)
+
+            pg.draw.rect(self.game.screen, 'white',
+                         (ray * SCALE, HALF_HEIGHT - proj_height // 2, SCALE, proj_height))
 
             ray_angle += DELTA_ANGLE
 
